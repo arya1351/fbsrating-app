@@ -1,91 +1,78 @@
-# 🚀 Panduan Instalasi Project Laravel
+<p align="center">
+  <a href="https://laravel.com" target="_blank">
+    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+  </a>
+</p>
 
-Ini adalah panduan resmi untuk menginstal dan menjalankan project Laravel ini di lingkungan lokal.
+<p align="center">
+  <a href="https://github.com/laravel/framework/actions">
+    <img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License">
+  </a>
+</p>
 
-## 📦 Requirements
+---
 
-Sebelum memulai, pastikan kamu sudah menginstall:
+## 🚀 Instalasi Project Laravel
 
--   PHP >= 8.1
--   Composer
--   Node.js dan NPM
--   MySQL (atau database lainnya)
--   Git
+Ikuti langkah-langkah di bawah ini untuk menginstal dan menjalankan proyek ini di mesin lokal Anda:
 
-## 📥 Langkah-Langkah Instalasi
-
-### 1. Clone Repository
-
-Clone project ini menggunakan `git`:
+### 1. Clone Repositori
 
 ```bash
 git clone https://github.com/username/nama-repo.git
 cd nama-repo
-2. Install Dependency PHP
-Jalankan perintah berikut untuk menginstall semua dependency backend:
-
+2. Install Dependency Backend (PHP)
 bash
 Copy
 Edit
 composer install
-3. Install Dependency Frontend (CSS & JS)
-Jalankan perintah berikut untuk menginstall dependency frontend seperti Tailwind, Vite, dsb:
-
+3. Install Dependency Frontend (JavaScript & CSS)
 bash
 Copy
 Edit
 npm install
-4. Konfigurasi Environment
-Salin file .env.example menjadi .env:
-
+4. Salin File Environment dan Generate APP Key
 bash
 Copy
 Edit
 cp .env.example .env
-Kemudian generate APP_KEY:
-
-bash
-Copy
-Edit
 php artisan key:generate
-5. Konfigurasi Database
-Edit file .env dan sesuaikan konfigurasi database kamu:
+5. Setup Database
+Pastikan database sudah dibuat di MySQL.
 
-dotenv
+Atur konfigurasi database di file .env.
+
+Contoh:
+
+makefile
 Copy
 Edit
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
 DB_DATABASE=nama_database
 DB_USERNAME=root
 DB_PASSWORD=
-Setelah itu jalankan migrasi:
-
+6. Jalankan Migrasi
 bash
 Copy
 Edit
 php artisan migrate
-6. Menjalankan Aplikasi
-Jalankan Laravel Server
+7. Jalankan Server dan Vite (Frontend)
+Jalankan Laravel:
 bash
 Copy
 Edit
 php artisan serve
-Jalankan Vite (untuk frontend)
+Jalankan Vite (Tailwind, JS, dll):
 bash
 Copy
 Edit
 npm run dev
-🛠 Fitur Project (Opsional)
-Autentikasi pengguna (Login, Register)
-
-CRUD Data
-
-Responsive dengan Tailwind CSS
-
-ChartJS untuk visualisasi data
-
-🧑‍💻 Kontributor
-Arya1351 - GitHub
 ```
