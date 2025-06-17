@@ -12,10 +12,9 @@
 
 <body class="font-sans">
  <!-- Sticky Navbar -->
-
  <nav class="sticky top-0 z-50 bg-white shadow">
   <!-- Main Navbar -->
-  <div class="flex items-center justify-between px-6 py-3">
+  <div class="container mx-auto flex items-center justify-between px-6 py-3">
    <!-- Kiri: Logo -->
    <div class="flex items-center space-x-4">
     <img src="{{ asset('img') }}/fbjlogos.png" alt="Logo" class="h-10" />

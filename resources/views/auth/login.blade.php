@@ -69,7 +69,7 @@
    <img src="https://img.antaranews.com/cache/1200x800/2020/03/03/handshake-3298455_1280.jpg.webp" alt="Background"
     class="w-full h-full object-cover opacity-80">
    <div class="absolute top-6 left-6">
-    <img src="https://via.placeholder.com/150x50?text=FBIndustries" alt="Logo" class="h-12">
+    <img src="{{ asset('img') }}/fbjlogos.png" alt="Logo" class="h-16 my-8 ml-12">
    </div>
   </div>
 
@@ -108,8 +108,7 @@
      </div>
 
      <!-- Links -->
-     <div class="flex justify-between text-sm">
-      <a href="#" class="text-red-700 hover:underline">Login with Mobile</a>
+     <div class="flex justify-end text-sm">
       <a href="#" class="text-red-700 hover:underline">Forgot Password?</a>
      </div>
 
@@ -123,12 +122,10 @@
 
     <div class="text-center text-sm">
      Don't have an account?
-     <a href="#" class="text-red-700 hover:underline">Create an Account</a>
+     <a href="{{ route('register') }}" class="text-red-700 hover:underline">Create an Account</a>
     </div>
 
-    <div class="text-center text-sm">
-     <a href="#" class="text-gray-800 hover:underline">Buyer Log In</a>
-    </div>
+
    </div>
   </div>
  </div>
