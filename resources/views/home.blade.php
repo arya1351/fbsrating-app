@@ -130,7 +130,7 @@
        <div x-data="{ modalOpen: false, images: [''] }">
         <button @click="modalOpen = !modalOpen"
          class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold">
-         <span>HOH</span>
+         <span>Berikan Ulasan</span>
         </button>
 
         <div x-data="{ images: [''] }" x-show="modalOpen" class="fixed inset-0 z-50 overflow-y-auto"
@@ -158,65 +158,10 @@
              ✕
             </button>
            </div>
-
-           <!-- Form -->
-           <form class="space-y-4">
-            <!-- Input ulasan -->
-            <div class="flex items-center bg-gray-400 rounded-full overflow-hidden">
-             <input type="text" placeholder="Berikan ulasan"
-              class="w-full bg-transparent px-4 py-2 text-white placeholder-white focus:outline-none" />
-             <button type="button" class="px-4 text-red-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 rotate-45" fill="currentColor"
-               viewBox="0 0 20 20">
-               <path
-                d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" />
-              </svg>
-             </button>
-            </div>
-
-            <!-- Produk yang dibeli -->
-            <input class="bg-red-600 text-white px-4 py-2 rounded w-full placeholder:text-white "
-             placeholder=" Produk yang di beli :">
-
-
-            <!-- Rating -->
-            <div x-data="{ rating: 0, hover: 0 }" class="flex justify-center space-x-1 text-3xl cursor-pointer text-gray-300">
-             <span @click="rating = 1" @mouseover="hover = 1" @mouseleave="hover = rating"
-              :class="(hover >= 1 || rating >= 1) ? 'text-yellow-400' : 'text-gray-300'">★</span>
-             <span @click="rating = 2" @mouseover="hover = 2" @mouseleave="hover = rating"
-              :class="(hover >= 2 || rating >= 2) ? 'text-yellow-400' : 'text-gray-300'">★</span>
-             <span @click="rating = 3" @mouseover="hover = 3" @mouseleave="hover = rating"
-              :class="(hover >= 3 || rating >= 3) ? 'text-yellow-400' : 'text-gray-300'">★</span>
-             <span @click="rating = 4" @mouseover="hover = 4" @mouseleave="hover = rating"
-              :class="(hover >= 4 || rating >= 4) ? 'text-yellow-400' : 'text-gray-300'">★</span>
-             <span @click="rating = 5" @mouseover="hover = 5" @mouseleave="hover = rating"
-              :class="(hover >= 5 || rating >= 5) ? 'text-yellow-400' : 'text-gray-300'">★</span>
-
-             <!-- Input tersembunyi -->
-             <input type="hidden" name="rating" :value="rating">
-            </div>
-
-
-            <!-- Upload gambar -->
-            <div>
-             <template x-for="(img, index) in images" :key="index">
-              <div class="mb-2">
-               <input type="file" :name="'gambar[' + index + ']'" class="block w-full text-sm text-gray-600" />
-              </div>
-             </template>
-             <button type="button" @click="images.push('')"
-              class="px-3 py-2 bg-gray-200 text-sm rounded hover:bg-gray-300 transition">
-              + Tambah Gambar
-             </button>
-            </div>
-
-            <!-- Tombol kirim -->
-            <div class="flex justify-end">
-             <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
-              Kirim Ulasan
-             </button>
-            </div>
-           </form>
+           <div class="flex ">
+            <a href="{{ route('login') }}" class="text-center w-full mx-auto bg-red-600 hover:bg-red-900 text-white px-4 py-2 rounded text-sm font-bold">Kamu harus login terlebih dahulu</a>
+           </div>
+           
           </div>
          </div>
         </div>

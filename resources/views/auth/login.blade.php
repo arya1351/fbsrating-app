@@ -78,15 +78,16 @@
    <div class="w-full max-w-2xl space-y-6">
     <h2 class="text-2xl font-bold">Check your newest <br> orders on <span class="text-gray-600">FBIndustries</span></h2>
 
-    <form class="space-y-4">
-     <!-- Email -->
+    <form method="POST" action="{{ route('login') }}" class="space-y-4">
+     @csrf
      <div>
       <label for="email" class="block text-sm font-medium">Email<span class="text-red-500">*</span></label>
       <div class="relative mt-1">
        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
         <i class="fa-xl fas fa-envelope"></i>
        </span>
-       <input type="email" id="email" required
+       <input type="email" name="email" :value="old('email')" required autofocus autocomplete="username"
+        id="email" required
         class="w-full pl-12 pr-4 py-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
       </div>
      </div>
@@ -98,7 +99,7 @@
        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
         <i class="fa-xl fas fa-lock"></i>
        </span>
-       <input type="password" id="password" required
+       <input type="password" name="password" required autocomplete="current-password" required
         class="w-full pl-12 pr-10 py-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
        <button type="button" onclick="togglePassword()"
         class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 focus:outline-none">
@@ -109,7 +110,9 @@
 
      <!-- Links -->
      <div class="flex justify-end text-sm">
-      <a href="#" class="text-red-700 hover:underline">Forgot Password?</a>
+      @if (Route::has('password.request'))
+       <a href="#" class="text-red-700 hover:underline">Forgot Password?</a>
+      @endif
      </div>
 
      <!-- Login Button -->
