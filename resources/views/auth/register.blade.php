@@ -51,7 +51,6 @@
     </form>
 </x-guest-layout> --}}
 
-
 {{-- <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -116,112 +115,91 @@
 
 </head>
 
-<body class="font-sans antialiased bg-white text-gray-900">
- <div class="min-h-screen flex flex-col lg:flex-row">
+<body class="bg-white font-sans text-gray-900 antialiased">
+ <div class="flex min-h-screen flex-col lg:flex-row">
   <!-- Left Section -->
-  <div class="hidden lg:block lg:w-1/2 relative">
+  <div class="relative hidden lg:block lg:w-1/2">
    <img src="https://img.antaranews.com/cache/1200x800/2020/03/03/handshake-3298455_1280.jpg.webp" alt="Background"
-    class="w-full h-full object-cover opacity-80">
-   <div class="absolute top-6 left-6">
-    <img src="{{ asset('img') }}/fbjlogos.png" alt="Logo" class="h-16 my-8 ml-12">
+    class="h-full w-full object-cover opacity-80">
+   <div class="absolute left-6 top-6">
+    <img src="{{ asset('img') }}/fbjlogos.png" alt="Logo" class="my-8 ml-12 h-16">
    </div>
   </div>
 
   <!-- Right Section -->
-  <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+  <div class="flex w-full items-center justify-center p-8 lg:w-1/2">
    <div class="w-full max-w-2xl space-y-6">
     <h2 class="text-2xl font-bold">Check your newest <br> orders on <span class="text-gray-600">FBIndustries</span></h2>
 
-    <form class="space-y-4">
+    <form method="POST" action="{{ route('register') }}" class="space-y-4">
+     @csrf
 
      <!-- Name -->
-     <div class="flex flex-col md:flex-row md:gap-6 gap-4 w-full">
+     <div class="flex w-full flex-col gap-4 md:flex-row md:gap-6">
       <!-- First Name -->
       <div class="w-full md:w-1/2">
-       <label for="first_name" class="text-sm font-medium block mb-1">
+       <label for="first_name" class="mb-1 block text-sm font-medium">
         First Name <span class="text-red-500">*</span>
        </label>
        <div class="flex">
-        <select name="salutation" class="pl-4 pr-4 py-4 border border-gray-300 bg-red-100">
+        <select name="salutation" class="border border-gray-300 bg-red-100 py-4 pl-4 pr-4">
          <option value="mr">Mr.</option>
          <option value="ms">Ms.</option>
          <option value="mrs">Mrs.</option>
         </select>
         <input type="text" id="first_name" name="first_name" required
-         class="w-full pl-4 pr-4 py-4 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-red-500">
+         class="w-full border border-gray-300 py-4 pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-red-500"
+         value="{{ old('first_name') }}">
        </div>
       </div>
 
       <!-- Last Name -->
       <div class="w-full md:w-1/2">
-       <label for="last_name" class="text-sm font-medium block mb-1">
+       <label for="last_name" class="mb-1 block text-sm font-medium">
         Last Name <span class="text-red-500">*</span>
        </label>
        <input type="text" id="last_name" name="last_name" required
-        class="w-full pl-4 pr-4 py-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+        class="w-full border border-gray-300 py-4 pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-red-500"
+        value="{{ old('last_name') }}">
       </div>
      </div>
-
-     <!-- Company Name -->
-     <div>
-      <label for="company" class="block text-sm font-medium">Company Name<span class="text-red-500">*</span></label>
-      <div class="relative mt-1">
-       <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-        <i class="fa-xl fas fa-building"></i>
-       </span>
-       <input type="email" id="email" required
-        class="w-full pl-12 pr-4 py-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-      </div>
-     </div>
-
 
      <!-- Email -->
      <div>
-      <label for="email" class="block text-sm font-medium">Email<span class="text-red-500">*</span></label>
-      <div class="relative mt-1">
-       <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-        <i class="fa-xl fas fa-envelope"></i>
-       </span>
-       <input type="email" id="email" required
-        class="w-full pl-12 pr-4 py-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-      </div>
+      <label for="email" class="block text-sm font-medium">Email <span class="text-red-500">*</span></label>
+      <input type="email" id="email" name="email" required
+       class="w-full border border-gray-300 py-4 pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-red-500"
+       value="{{ old('email') }}">
      </div>
 
      <!-- Password -->
      <div>
-      <label for="password" class="block text-sm font-medium">Password<span class="text-red-500">*</span></label>
-      <div class="relative mt-1">
-       <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-        <i class="fa-xl fas fa-lock"></i>
-       </span>
-       <input type="password" id="password" required
-        class="w-full pl-12 pr-10 py-4 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-       <button type="button" onclick="togglePassword()"
-        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 focus:outline-none">
-        <i id="togglePasswordIcon" class="fas fa-eye"></i>
-       </button>
-      </div>
+      <label for="password" class="block text-sm font-medium">Password <span class="text-red-500">*</span></label>
+      <input type="password" id="password" name="password" required
+       class="w-full border border-gray-300 py-4 pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-red-500">
      </div>
 
-     <!-- Links -->
-     <div class="flex justify-end text-sm">
-      <a href="#" class="text-red-700 hover:underline">Forgot Password?</a>
-     </div>
-
-     <!-- Login Button -->
+     <!-- Confirm Password -->
      <div>
-      <button type="submit" class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2">
-       Login
+      <label for="password_confirmation" class="block text-sm font-medium">Confirm Password <span
+        class="text-red-500">*</span></label>
+      <input type="password" id="password_confirmation" name="password_confirmation" required
+       class="w-full border border-gray-300 py-4 pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-red-500">
+     </div>
+
+     <!-- Submit -->
+     <div>
+      <button type="submit" class="w-full bg-red-700 py-2 font-semibold text-white hover:bg-red-800">
+       Register
       </button>
      </div>
     </form>
 
-       <div class="text-center text-sm">
+    <div class="text-center text-sm">
      Already have an account?
      <a href="{{ route('login') }}" class="text-red-700 hover:underline">Login</a>
     </div>>
 
-    
    </div>
   </div>
  </div>
