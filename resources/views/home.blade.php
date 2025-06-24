@@ -18,7 +18,7 @@
 <body class="font-sans">
  @if ($errors->any())
   <div id="error-toast"
-   class="fixed bottom-4 left-1 transform  bg-red-500 text-white px-6 py-3 rounded shadow-lg z-10 transition-opacity duration-5000 opacity-100">
+   class="fixed bottom-4 right-1 transform  bg-red-500 text-white px-6 py-3 rounded shadow-lg z-10 transition-opacity duration-500 opacity-100">
    <ul class="list-disc list-inside text-sm">
     @foreach ($errors->all() as $error)
      <li>{{ $error }}</li>
@@ -37,6 +37,24 @@
    }, 5000);
   </script>
  @endif
+
+ @if (session('success'))
+    <div id="success-toast" class="fixed bottom-4 right-1 transform bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50 transition-opacity duration-500 opacity-100">
+        {{ session('success') }}
+    </div>
+
+    <script>
+        // Auto-hide setelah 4 detik
+        setTimeout(() => {
+            const toast = document.getElementById('success-toast');
+            if (toast) {
+                toast.style.opacity = 0;
+                setTimeout(() => toast.remove(), 5000); // hilangkan setelah animasi
+            }
+        }, 4000);
+    </script>
+@endif
+
  <!-- Sticky Navbar -->
  <nav class="sticky top-0 z-50 bg-white shadow">
   <!-- Main Navbar -->
