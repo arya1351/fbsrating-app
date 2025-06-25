@@ -234,9 +234,9 @@
  <div class="flex flex-col items-start justify-center gap-8 p-8 md:flex-row">
   <!-- Chart Placeholder -->
   <div class="w-full bg-gray-100 p-4 md:w-1/2">
-  <div style="position: relative; height:400px; width:100%;">
+   <div style="position: relative; height:400px; width:100%;">
     <canvas id="barChart"></canvas>
-</div>
+   </div>
   </div>
   <!-- Ratings -->
 
@@ -382,115 +382,38 @@
   </div>
   <!-- Metode Pembayaran -->
   <div>
-   <h3 class="mb-2 text-lg font-bold">Metode Pembayaran</h3>
-   <div class="flex flex-wrap gap-2">
-    <img src="https://via.placeholder.com/50x30?text=Visa" alt="Visa" />
-    <img src="https://via.placeholder.com/50x30?text=Master" alt="MasterCard" />
-    <img src="https://via.placeholder.com/50x30?text=BNI" alt="BNI" />
-    <img src="https://via.placeholder.com/50x30?text=BCA" alt="BCA" />
-    <img src="https://via.placeholder.com/50x30?text=Mandiri" alt="Mandiri" />
-    <img src="https://via.placeholder.com/50x30?text=Alto" alt="Alto" />
+   <h3 class="text-lg font-bold pb-2">Informasi</h3>
+   <div class="grid gap-1">
+    <a href="#" class="text-md text-white hover:text-underline">Menjadi Vendor Kami</a>
+    <a href="#" class="text-md text-white hover:text-underline">Syarat dan Ketentuan</a>
+   </div>
+    <h3 class="text-lg font-bold pb-4">Metode Pembayaran</h3>
+   <div>
+    <img src="{{ asset('img') }}/metode-pembayaran.png" class="w-36" alt="">
+   </div>
+    <h3 class="text-lg font-bold py-4">Ikuti Kami</h3>
+    <div class="flex justify-start space-x-4 text-2xl">
+     <a href="#"><span>📘</span></a>
+     <a href="#"><span>📷</span></a>
+     <a href="#"><span>🐦</span></a>
+     <a href="#"><span>▶️</span></a>
+     <a href="#"><span>💼</span></a>
    </div>
   </div>
  </footer>
 
  <!-- Ikuti Kami -->
  <div class="bg-gray-500 py-4 text-center text-white">
-  <h3 class="mb-2 text-lg font-bold">Ikuti Kami</h3>
-  <div class="flex justify-center space-x-4 text-2xl">
-   <a href="#"><span>📘</span></a>
-   <a href="#"><span>📷</span></a>
-   <a href="#"><span>🐦</span></a>
-   <a href="#"><span>▶️</span></a>
-   <a href="#"><span>💼</span></a>
-  </div>
+
  </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-trendline@2.0.0"></script>
 <script>
-    const barCtx = document.getElementById('barChart').getContext('2d');
-
-    const labels = ['1 Bintang', '2 Bintang', '3 Bintang', '4 Bintang', '5 Bintang'];
-    const values = [
-        {{ $starCounts[1] ?? 0 }},
-        {{ $starCounts[2] ?? 0 }},
-        {{ $starCounts[3] ?? 0 }},
-        {{ $starCounts[4] ?? 0 }},
-        {{ $starCounts[5] ?? 0 }},
-    ];
-
-    // Array warna untuk setiap bintang
-    const backgroundColors = [
-        'rgba(255, 99, 132, 0.7)',
-        'rgba(255, 159, 64, 0.7)',
-        'rgba(255, 205, 86, 0.7)',
-        'rgba(75, 192, 192, 0.7)',
-        'rgba(54, 162, 235, 0.7)'
-    ];
-
-
-    // 1. KEMBALI KE STRUKTUR MULTI-DATASET
-    const datasets = values.map((val, i) => {
-        const dataArr = Array(labels.length).fill(null);
-        dataArr[i] = val;
-
-        return {
-            label: labels[i], // Setiap dataset punya label sendiri (1 Bintang, 2 Bintang, dst)
-            data: dataArr,
-            backgroundColor: backgroundColors[i], // Berikan warna unik
-            borderWidth: 1
-        };
-    });
-
-    new Chart(barCtx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: datasets
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                // 2. AKTIFKAN KEMBALI LEGEND-NYA
-                legend: {
-                    display: true,
-                    position: 'top', // Posisi legenda (bisa 'top', 'bottom', 'left', 'right')
-                },
-                tooltip: {
-                    // Tooltip ini akan menampilkan info saat hover
-                    callbacks: {
-                        label: function(context) {
-                           // Menampilkan label dan nilai dari dataset yang di-hover
-                           return `${context.dataset.label}: ${context.raw}`;
-                        }
-                    }
-                }
-            },
-            // 3. KUNCI UTAMA ADA DI SINI
-            scales: {
-                x: {
-                    stacked: true, // Tumpuk bar di sumbu X
-                },
-                y: {
-                    stacked: true, // Tumpuk bar di sumbu Y
-                    beginAtZero: true,
-                    ticks: {
-                        precision: 0
-                    }
-                }
-            }
-        }
-    });
-</script>
-
-<script>
  const barCtx = document.getElementById('barChart').getContext('2d');
 
- // Label tiap bar
- const labels = ['1 Star', '2 Star', '3 Star', '4 Star', '5 Star'];
+ const labels = ['1 Bintang', '2 Bintang', '3 Bintang', '4 Bintang', '5 Bintang'];
  const values = [
   {{ $starCounts[1] ?? 0 }},
   {{ $starCounts[2] ?? 0 }},
@@ -499,103 +422,71 @@
   {{ $starCounts[5] ?? 0 }},
  ];
 
+ // Array warna untuk setiap bintang
+ const backgroundColors = [
+  'rgba(255, 99, 132, 0.7)',
+  'rgba(255, 159, 64, 0.7)',
+  'rgba(255, 205, 86, 0.7)',
+  'rgba(75, 192, 192, 0.7)',
+  'rgba(54, 162, 235, 0.7)'
+ ];
+
+
+ // 1. KEMBALI KE STRUKTUR MULTI-DATASET
+ const datasets = values.map((val, i) => {
+  const dataArr = Array(labels.length).fill(null);
+  dataArr[i] = val;
+
+  return {
+   label: labels[i], // Setiap dataset punya label sendiri (1 Bintang, 2 Bintang, dst)
+   data: dataArr,
+   backgroundColor: backgroundColors[i], // Berikan warna unik
+   borderWidth: 1
+  };
+ });
+
  new Chart(barCtx, {
   type: 'bar',
   data: {
    labels: labels,
-   datasets: [{
-    label: 'Jumlah Kasus Claim Masuk',
-    data: values,
-    backgroundColor: 'rgba(75, 192, 192, 0.5)',
-    borderColor: 'rgba(75, 192, 192, 1)',
-    borderWidth: 1
-   }]
+   datasets: datasets
   },
   options: {
    responsive: true,
    maintainAspectRatio: false,
    plugins: {
+    // 2. AKTIFKAN KEMBALI LEGEND-NYA
     legend: {
      display: true,
-     labels: {
-      usePointStyle: true
+     position: 'top', // Posisi legenda (bisa 'top', 'bottom', 'left', 'right')
+    },
+    tooltip: {
+     // Tooltip ini akan menampilkan info saat hover
+     callbacks: {
+      label: function(context) {
+       // Menampilkan label dan nilai dari dataset yang di-hover
+       return `${context.dataset.label}: ${context.raw}`;
+      }
      }
     }
    },
+   // 3. KUNCI UTAMA ADA DI SINI
    scales: {
     x: {
-     beginAtZero: true,
-     grid: {
-      offset: true
-     }
+     stacked: true, // Tumpuk bar di sumbu X
     },
     y: {
-     beginAtZero: true
+     stacked: true, // Tumpuk bar di sumbu Y
+     beginAtZero: true,
+     ticks: {
+      precision: 0
+     }
     }
    }
-
   }
  });
 </script>
 
-{{-- <script>
- const barCtx = document.getElementById('barChart').getContext('2d');
-
- const allData = {
-  labels: ['1 Star', '2 Star', '3 Star', '4 Star', '5 Star'],
-  values: [
-   {{ $starCounts[1] ?? 0 }},
-   {{ $starCounts[2] ?? 0 }},
-   {{ $starCounts[3] ?? 0 }},
-   {{ $starCounts[4] ?? 0 }},
-   {{ $starCounts[5] ?? 0 }},
-  ]
- };
-
- let barDatasets = [{
-  label: 'Jumlah Kasus Claim Masuk',
-  data: allData.values,
-  backgroundColor: 'rgba(75, 192, 192, 0.5)',
-  borderColor: 'rgba(75, 192, 192, 1)',
-  borderWidth: 1
- }];
-
- // Tambahkan trendline jika datanya mencukupi (>= 2)
- if (allData.values.length >= 2) {
-  barDatasets.push({
-   label: 'Trendline',
-   data: allData.values,
-   borderColor: 'rgba(255, 99, 132, 1)',
-   borderWidth: 2,
-   type: 'line', // penting! supaya trendline tetap garis
-   fill: false,
-   trendlineLinear: {
-    style: 'rgba(255, 99, 132, .8)',
-    lineStyle: 'dotted',
-    width: 3
-   },
-   pointRadius: 0,
-   order: 0
-  });
- }
-
- let barChart = new Chart(barCtx, {
-  type: 'bar',
-  data: {
-   labels: allData.labels,
-   datasets: barDatasets
-  },
-  options: {
-   responsive: true,
-   maintainAspectRatio: false,
-   scales: {
-    y: {
-     beginAtZero: true
-    }
-   }
-  }
- });
-</script> --}}
 <script>
  const stars = document.querySelectorAll('#starRating .star');
  const starsInput = document.getElementById('starsInput');
