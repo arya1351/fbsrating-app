@@ -4,7 +4,7 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>PT. Jeil Fajar Indonesia</title>
+ <title>FBIndustries </title>
  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
  @vite(entrypoints: ['resources/css/app.css', 'resources/js/app.js'])
  <style>
@@ -12,10 +12,11 @@
    display: none !important;
   }
  </style>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 </head>
 
-<body class="font-sans">
+<body class="font-sans" x-data="{ mobileOpen: false, modalOpen: false }">
  @if ($errors->any())
   <div id="error-toast"
    class="fixed bottom-4 right-1 z-10 transform rounded bg-red-500 px-6 py-3 text-white opacity-100 shadow-lg transition-opacity duration-500">
@@ -56,8 +57,37 @@
   </script>
  @endif
 
+ <!-- LIST MERAH (TIDAK sticky) -->
+ <div class="bg-[#C4202C] py-2 text-xs text-white md:py-0">
+  <div class="container mx-auto flex justify-center space-x-6 md:justify-end md:space-x-4">
+   <!-- Dropdown -->
+   <div x-data="{ open: false }" class="relative">
+    <button @click="open = !open" class="flex items-center gap-1 hover:underline">
+     Tentang Fajar Benua
+     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd"
+       d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.08 1.04l-4.25 4.65a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+       clip-rule="evenodd" />
+     </svg>
+    </button>
+    <div x-show="open" @click.outside="open = false" x-transition:enter="transition ease-out duration-200"
+     x-transition:enter-start="opacity-0 scale-100" x-transition:enter-end="opacity-100 scale-100"
+     x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100"
+     x-transition:leave-end="opacity-0 scale-100"
+     class="absolute right-0 z-50 mt-1 w-48 rounded bg-white text-sm text-black shadow">
+     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profil Perusahaan</a>
+
+     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Visi Misi</a>
+    </div>
+   </div>
+
+   <a href="#" class="hover:underline">Artikel</a>
+   <a href="#" class="hover:underline">Panduan</a>
+  </div>
+ </div>
+
  <!-- Sticky Navbar -->
- <nav class="sticky top-0 z-50 bg-white shadow">
+ <nav class="sticky top-0 z-40 bg-white shadow">
   <!-- Main Navbar -->
   <div class="container mx-auto flex items-center justify-between px-6 py-3">
    <!-- Kiri: Logo -->
@@ -133,7 +163,8 @@
             <input type="text" name="rating_desc" placeholder="Berikan ulasan"
              class="w-full bg-transparent px-4 py-2 text-white placeholder-white focus:outline-none" required>
             <button type="submit" class="px-4 text-red-500">
-             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-45" fill="currentColor" viewBox="0 0 20 20">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-45" fill="currentColor"
+              viewBox="0 0 20 20">
               <path
                d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" />
              </svg>
@@ -142,7 +173,7 @@
 
            <!-- Produk Placeholder -->
            <input type="text" name="product"
-            class="w-full rounded bg-red-600 px-4 py-2 text-white placeholder:text-white"
+            class="bg-fbsred w-full rounded px-4 py-2 text-white placeholder:text-white"
             placeholder="Produk yang dibeli">
 
            <!-- Rating Bintang -->
@@ -166,7 +197,7 @@
 
            <!-- Tombol Kirim -->
            <div class="flex justify-end">
-            <button type="submit" class="rounded bg-red-600 px-4 py-2 text-white transition hover:bg-red-700">
+            <button type="submit" class="bg-fbsred rounded px-4 py-2 text-white transition hover:bg-red-700">
              Kirim Ulasan
             </button>
            </div>
@@ -177,50 +208,63 @@
        </div>
       @else
        <!-- Kanan: Cart + Auth -->
-       <button class="rounded border border-gray-400 px-4 py-2 text-sm font-medium">
-        <a class="text-black hover:text-gray-400 hover:underline" href="{{ route('login') }}">SIGN IN</a> /
-        <a class="text-black hover:text-gray-400 hover:underline" href="{{ route('register') }}">REGISTER</a>
-       </button>
-       <div x-data="{ modalOpen: false, images: [''] }">
-        <button @click="modalOpen = !modalOpen"
-         class="rounded bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600">
-         <span>Berikan Ulasan</span>
+
+       <!-- Kanan: Tombol (desktop) -->
+       <div class="hidden items-center space-x-4 md:flex">
+        <button class="rounded border border-gray-400 px-4 py-2 text-xs font-medium">
+         <a class="text-black hover:text-gray-400 hover:underline" href="{{ route('login') }}">SIGN IN</a> /
+         <a class="text-black hover:text-gray-400 hover:underline" href="{{ route('register') }}">REGISTER</a>
         </button>
+        <button @click="modalOpen = true"
+         class="rounded bg-blue-500 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-600">
+         Berikan Ulasan
+        </button>
+       </div>
 
-        <div x-data="{ images: [''] }" x-show="modalOpen" class="fixed inset-0 z-50 overflow-y-auto"
-         aria-labelledby="modal-title" role="dialog" aria-modal="true">
-         <div class="flex min-h-screen items-center justify-center px-4 text-center">
-          <!-- Overlay -->
-          <div x-cloak @click="modalOpen = false" x-show="modalOpen"
-           x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0"
-           x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200 transform"
-           x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-           class="fixed inset-0 bg-gray-700 bg-opacity-80" aria-hidden="true"></div>
+       <!-- Hamburger (mobile only) -->
+       <div class="md:hidden">
+        <button @click="mobileOpen = true">
+         <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+         </svg>
+        </button>
+       </div>
 
-          <!-- Modal -->
-          <div x-cloak x-show="modalOpen" x-transition:enter="transition ease-out duration-300 transform"
-           x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-           x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-           x-transition:leave="transition ease-in duration-200 transform"
-           x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-           x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-           class="my-20 inline-block w-full max-w-lg transform overflow-hidden rounded-lg bg-white p-6 text-left shadow-xl transition-all">
+       <div x-data="{ images: [''] }" x-show="modalOpen" class="fixed inset-0 z-50 overflow-y-auto"
+        aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex min-h-screen items-center justify-center px-4 text-center">
+         <!-- Overlay -->
+         <div x-cloak @click="modalOpen = false" x-show="modalOpen"
+          x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200 transform"
+          x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+          class="fixed inset-0 bg-gray-700 bg-opacity-80" aria-hidden="true"></div>
 
-           <!-- Header -->
-           <div class="flex justify-end">
-            <button @click="modalOpen = false" class="mb-2 rounded-full p-1 text-black">
-             ✕
-            </button>
-           </div>
-           <div class="flex">
-            <a href="{{ route('login') }}"
-             class="mx-auto w-full rounded bg-red-600 px-4 py-2 text-center text-sm font-bold text-white hover:bg-red-900">Kamu
-             harus login terlebih dahulu</a>
-           </div>
+         <!-- Modal -->
+         <div x-cloak x-show="modalOpen" x-transition:enter="transition ease-out duration-300 transform"
+          x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+          x-transition:leave="transition ease-in duration-200 transform"
+          x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+          x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          class="my-20 inline-block w-full max-w-lg transform overflow-hidden rounded-lg bg-white p-6 text-left shadow-xl transition-all">
 
+          <!-- Header -->
+          <div class="flex justify-end">
+           <button @click="modalOpen = false" class="mb-2 rounded-full p-1 text-black">
+            ✕
+           </button>
           </div>
+          <div class="flex">
+           <a href="{{ route('login') }}"
+            class="bg-fbsred mx-auto w-full rounded px-4 py-2 text-center text-sm font-bold text-white hover:bg-red-900">Kamu
+            harus login terlebih dahulu</a>
+          </div>
+
          </div>
         </div>
+       </div>
      @endif
     @endauth
 
@@ -228,7 +272,39 @@
   </div>
   </div>
   </div>
- </nav>
+  
+</nav>
+
+<!-- Drawer Mobile -->
+<div   x-show="mobileOpen"
+  x-transition:enter="transition ease-out duration-300"
+  x-transition:enter-start="-translate-x-full"
+  x-transition:enter-end="translate-x-0"
+  x-transition:leave="transition ease-in duration-200"
+  x-transition:leave-start="translate-x-0"
+  x-transition:leave-end="-translate-x-full"
+
+  x-cloak class="fixed inset-0 z-50 flex">
+  <!-- Overlay -->
+  <div class="fixed inset-0 bg-opacity-50" @click="mobileOpen = false"></div>
+
+  <!-- Sidebar -->
+  <div class="relative w-full bg-white p-6 text-sm text-black z-50 transform transition-transform duration-300"
+    x-transition:enter="translate-x-[-100%]" x-transition:enter-end="translate-x-0"
+    x-transition:leave="translate-x-0" x-transition:leave-end="translate-x-[-100%]">
+    <button @click="mobileOpen = false" class="absolute top-2 right-2 text-xl">&times;</button>
+
+    <img src="{{ asset('img/fbjlogos.png') }}" alt="Logo" class="h-10 mb-6">
+
+    <a href="{{ route('login') }}"
+      class="block w-full rounded border px-4 py-2 mb-2 text-center hover:bg-gray-100">SIGN IN</a>
+    <a href="{{ route('register') }}"
+      class="block w-full rounded border px-4 py-2 mb-4 text-center hover:bg-gray-100">REGISTER</a>
+
+    <button @click="modalOpen = true; mobileOpen = false"
+      class="w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Berikan Ulasan</button>
+  </div>
+</div>
 
  <!-- Chart & Ratings -->
  <div class="flex flex-col items-start justify-center gap-8 p-8 md:flex-row">
@@ -239,11 +315,6 @@
    </div>
   </div>
   <!-- Ratings -->
-
-  @php
-   $firstFive = $ratings->take(4);
-   $remaining = $ratings->slice(4);
-  @endphp
 
   @php
    $ratingsJson = $ratings->map(function ($r) {
@@ -266,7 +337,29 @@
           if (!this.selectedStar) return this.allRatings;
           return this.allRatings.filter(r => r.stars == this.selectedStar);
       },
-  }" x-init="init()" class="w-full bg-gray-500 p-4 text-white md:w-1/2">
+      selectedImageIndex: 0,
+      imageGallery: [],
+      imageModalOpen: false,
+      openImageModal(images, index) {
+          this.imageGallery = images;
+          this.selectedImageIndex = index;
+          this.imageModalOpen = true;
+      },
+      closeImageModal() {
+          this.imageModalOpen = false;
+      },
+      nextImage() {
+          if (this.selectedImageIndex < this.imageGallery.length - 1) {
+              this.selectedImageIndex++;
+          }
+      },
+      prevImage() {
+          if (this.selectedImageIndex > 0) {
+              this.selectedImageIndex--;
+          }
+      },
+  
+  }" x-init="init()" class="bg-fbsgray w-full p-4 text-white md:w-1/2">
    <div class="mb-4">
     <select x-model="selectedStar" @change="updateChart()" class="rounded px-12 py-1 pl-2 text-black">
      <option value="">⭐ All</option>
@@ -285,7 +378,8 @@
      <div x-text="'⭐'.repeat(rating.stars)"></div>
      <div class="flex gap-2 py-2">
       <template x-for="img in rating.images" :key="img">
-       <img :src="img" class="h-12 w-12 object-cover" />
+       <img :src="img" class="h-12 w-12 cursor-pointer object-cover"
+        @click="openImageModal(rating.images, rating.images.indexOf(img))" />
       </template>
      </div>
     </div>
@@ -293,7 +387,7 @@
 
    <template x-if="filteredRatings.length > 4">
     <div class="flex w-full justify-end">
-     <button @click="openMore = true" class="rounded bg-transparent px-4 py-2 text-blue-700">Lihat semua
+     <button @click="openMore = true" class="rounded bg-transparent px-4 py-2 text-blue-400">Lihat semua
       ulasan</button>
     </div>
    </template>
@@ -305,18 +399,46 @@
        class="absolute right-2 top-2 text-2xl text-gray-600 md:text-xl lg:text-xl">&times;</button>
       <h2 class="mb-4 text-lg font-bold">Semua Ulasan</h2>
 
-      <template x-for="(rating, index) in filteredRatings.slice(4)" :key="index">
+      <template x-for="(rating, index) in filteredRatings.slice(0)" :key="index">
        <div class="mb-4 border-b pb-2">
         <p><strong x-text="rating.user_name"></strong>: <span x-text="rating.rating_desc"></span></p>
         <p>pembelian barang: <span x-text="rating.product"></span></p>
         <div x-text="'⭐'.repeat(rating.stars)"></div>
         <div class="flex gap-2 py-2">
          <template x-for="img in rating.images" :key="img">
-          <img :src="img" class="h-12 w-12 object-cover" />
-         </template>
+          <img :src="img" class="h-12 w-12 cursor-pointer object-cover"
+           @click="openImageModal(rating.images, rating.images.indexOf(img))" /> </template>
         </div>
        </div>
       </template>
+     </div>
+    </div>
+   </template>
+
+   <!-- Modal Gambar Fullscreen -->
+   <template x-if="imageModalOpen">
+    <div class="fixed inset-0 z-[999] flex items-center justify-center bg-black bg-opacity-80 px-4">
+     <div class="relative mx-auto w-full max-w-3xl">
+      <!-- Tombol Close -->
+      <button @click="closeImageModal"
+       class="absolute right-2 top-2 z-50 text-3xl text-white hover:text-red-400">&times;</button>
+
+      <!-- Gambar Aktif -->
+      <img :src="imageGallery[selectedImageIndex]" class="mx-auto max-h-[80vh] rounded shadow-lg" />
+
+      <!-- Tombol Navigasi -->
+      <div class="absolute inset-y-0 left-0 flex items-center">
+       <button @click="prevImage" class="px-4 text-4xl text-white hover:text-gray-400"
+        :disabled="selectedImageIndex === 0">
+        ‹
+       </button>
+      </div>
+      <div class="absolute inset-y-0 right-0 flex items-center">
+       <button @click="nextImage" class="px-4 text-4xl text-white hover:text-gray-400"
+        :disabled="selectedImageIndex === imageGallery.length - 1">
+        ›
+       </button>
+      </div>
      </div>
     </div>
    </template>
@@ -327,8 +449,8 @@
  </div>
 
  <!-- Best Seller Section -->
- <section class="bg-red-600 py-8 text-center text-white">
-  <h2 class="text-3xl font-bold">Best Seller Produk</h2>
+ <section class="bg-fbsred py-8 text-center text-white">
+  <h2 class="text-2xl font-bold md:text-4xl">Best Seller Produk</h2>
  </section>
 
  <div class="flex flex-col justify-center gap-8 p-8 md:flex-row">
@@ -362,50 +484,75 @@
  </div>
 
  <!-- Footer -->
- <footer class="grid grid-cols-1 gap-8 bg-gray-500 p-8 text-white md:grid-cols-3">
-  <!-- Lokasi -->
-  <div>
-   <h3 class="mb-2 text-lg font-bold">Lokasi Kami</h3>
-   <p class="font-bold">
-    Indonesia <span class="ml-2 inline-block">🇮🇩</span>
-   </p>
-   <p>Jeil Fajar Indonesia</p>
-   <p>Jl. Mayor Oking Jayaatmaja</p>
-   <p>No. 88 Cibinong 16911 Jawa Barat, Indonesia</p>
-  </div>
-  <!-- Tentang Kami -->
-  <div>
-   <h3 class="mb-2 text-lg font-bold">Tentang Kami</h3>
-   <p>Fajar Benua Store</p>
-   <p>Tim Ahli Kami</p>
-   <p>Ruang Engineer</p>
-  </div>
-  <!-- Metode Pembayaran -->
-  <div>
-   <h3 class="text-lg font-bold pb-2">Informasi</h3>
-   <div class="grid gap-1">
-    <a href="#" class="text-md text-white hover:text-underline">Menjadi Vendor Kami</a>
-    <a href="#" class="text-md text-white hover:text-underline">Syarat dan Ketentuan</a>
-   </div>
-    <h3 class="text-lg font-bold pb-4">Metode Pembayaran</h3>
+ <footer class="bg-fbsgray text-white">
+  <div class="grid grid-cols-1 gap-8 p-8 md:grid-cols-3">
+   <!-- Lokasi -->
    <div>
-    <img src="{{ asset('img') }}/metode-pembayaran.png" class="w-36" alt="">
+    <h3 class="mb-2 text-lg font-bold">Lokasi Kami</h3>
+    <p class="flex gap-2 font-bold">
+     Indonesia <img src="https://flagicons.lipis.dev/flags/4x3/id.svg" width="20px" alt="">
+    </p>
+    <p>Jeil Fajar Indonesia</p>
+    <p>Jl. Mayor Oking Jayaatmaja</p>
+    <p>No. 88 Cibinong 16911 Jawa Barat, Indonesia</p>
    </div>
-    <h3 class="text-lg font-bold py-4">Ikuti Kami</h3>
-    <div class="flex justify-start space-x-4 text-2xl">
-     <a href="#"><span>📘</span></a>
-     <a href="#"><span>📷</span></a>
-     <a href="#"><span>🐦</span></a>
-     <a href="#"><span>▶️</span></a>
-     <a href="#"><span>💼</span></a>
+   <!-- Tentang Kami -->
+   <div>
+    <h3 class="mb-2 text-lg font-bold">Tentang Kami</h3>
+    <p><a href="https://store.fajarbenua.co.id/fajar-benua-group/" class="text-white hover:underline">Fajar Benua
+      Group</a></p>
+    <p class="pt-1"><a href="https://store.fajarbenua.co.id/fajar-benua-store/"
+      class="text-white hover:underline">Fajar Benua Store</a></p>
+    <p class="pt-1"><a href="https://store.fajarbenua.co.id/tim-ahli-kami/" class="text-white hover:underline">Tim
+      Ahli Kami</a></p>
+    <p class="pt-1"><a href="https://ruangengineer.id/" class="text-white hover:underline">Ruang Engineer</a></p>
+   </div>
+   <!-- Metode Pembayaran -->
+   <div>
+    <h3 class="pb-2 text-lg font-bold">Informasi</h3>
+    <div class="grid gap-1">
+     <a href="#" class="text-md hover:text-underline text-white">Menjadi Vendor Kami</a>
+     <a href="#" class="text-md hover:text-underline text-white">Syarat dan Ketentuan</a>
+    </div>
+    <h3 class="pb-4 text-lg font-bold">Metode Pembayaran</h3>
+    <div>
+     <img src="{{ asset('img') }}/metode-pembayaran.png" class="w-36" alt="">
+    </div>
+    <h3 class="py-4 text-lg font-bold">Ikuti Kami</h3>
+    <div class="flex justify-start space-x-4 text-white">
+     <!-- Facebook -->
+     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1877F2] hover:opacity-80">
+      <i class="fab fa-facebook-f text-base"></i>
+     </a>
+     <!-- Instagram -->
+     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#E1306C] hover:opacity-80">
+      <i class="fab fa-instagram text-base"></i>
+     </a>
+     <!-- Twitter -->
+     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1DA1F2] hover:opacity-80">
+      <i class="fab fa-twitter text-base"></i>
+     </a>
+     <!-- YouTube -->
+     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF0000] hover:opacity-80">
+      <i class="fab fa-youtube text-base"></i>
+     </a>
+     <!-- LinkedIn -->
+     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A66C2] hover:opacity-80">
+      <i class="fab fa-linkedin-in text-base"></i>
+     </a>
+    </div>
+
    </div>
   </div>
  </footer>
 
- <!-- Ikuti Kami -->
- <div class="bg-gray-500 py-4 text-center text-white">
-
+ <!-- Copyright -->
+ <div class="bg-black py-4 text-center text-sm text-white">
+  <p>
+   &copy; 2021 - 2025 <span class="font-semibold">Fajar Benua Group</span>. All rights reserved.
+  </p>
  </div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>

@@ -4,7 +4,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>FBIndustries Login</title>
+ <title>FBIndustries | Login</title>
 
  <!-- Tailwind CSS -->
  <script src="https://cdn.tailwindcss.com"></script>
@@ -21,8 +21,10 @@
    <img src="https://img.antaranews.com/cache/1200x800/2020/03/03/handshake-3298455_1280.jpg.webp" alt="Background"
     class="w-full h-full object-cover opacity-80">
    <div class="absolute top-6 left-6">
+    <a href="/">
     <img src="{{ asset('img') }}/fbjlogos.png" alt="Logo" class="h-16 my-8 ml-12">
-   </div>
+  </a> 
+  </div>
   </div>
 
   <!-- Right Section -->
@@ -59,14 +61,6 @@
        </button>
       </div>
      </div>
-
-     {{-- <!-- Links -->
-     <div class="flex justify-end text-sm">
-      @if (Route::has('password.request'))
-       <a href="{{ route('password.request') }}" class="text-red-700 hover:underline">Forgot Password?</a>
-      @endif
-     </div> --}}
-
      <!-- Login Button -->
      <div>
       <button type="submit" class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-2 rounded-md">
