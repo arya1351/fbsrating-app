@@ -380,9 +380,10 @@
      @else
       <!-- Desktop non-login -->
       <div class="hidden space-x-2 md:flex">
-       <a href="{{ route('login') }}" class="rounded border px-3 py-2 text-sm text-black hover:bg-gray-100">Sign In</a>
-       <a href="{{ route('register') }}"
-        class="rounded border px-3 py-2 text-sm text-black hover:bg-gray-100">Register</a>
+         <button class="rounded border border-gray-400 px-4 py-2 text-xs font-medium">
+         <a class="text-black hover:text-gray-400 hover:underline" href="{{ route('login') }}">SIGN IN</a> /
+         <a class="text-black hover:text-gray-400 hover:underline" href="{{ route('register') }}">REGISTER</a>
+        </button>
        <button @click="modelOpen = true" class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Beri
         Ulasan</button>
       </div>
@@ -447,6 +448,7 @@
      <button type="submit" class="block w-full px-2 py-2 text-left text-sm">Logout</button>
     </form>
    @else
+
     <a href="{{ route('login') }}"
      class="mb-2 block w-full rounded border px-4 py-2 text-center hover:bg-gray-100">Sign In</a>
     <a href="{{ route('register') }}"
@@ -673,7 +675,7 @@
  <div class="flex flex-col justify-center gap-8 p-8 md:flex-row">
   <!-- Product 1 -->
   <div class="text-center">
-   <img src="https://picsum.photos/300/150" alt="Produk 1" class="mx-auto" />
+   <img src="{{ asset('img') }}/gasket-sheet.png" width="300" height="150" alt="Produk 1" class="mx-auto" />
    <p class="mt-2 text-sm">
     Brand 3Star, Artus Series, ANSI #1500, 24 Inch <br />with Inner SS304L
     and Outer Ring Sealing Element SS304L-Graphite
@@ -682,7 +684,7 @@
   </div>
   <!-- Product 2 -->
   <div class="text-center">
-   <img src="https://picsum.photos/300/150" alt="Produk 2" class="mx-auto" />
+   <img src="{{ asset('img') }}/heat-exchanger.jpg" width="300" height="150" alt="Produk 2" class="mx-auto" />
    <p class="mt-2 text-sm">
     Brand 3Star, Artus Series, ANSI #900, 24 Inch <br />with Inner SS304L
     and Outer Ring Sealing Element SS304L-Graphite
@@ -691,7 +693,7 @@
   </div>
   <!-- Product 3 -->
   <div class="text-center">
-   <img src="https://picsum.photos/300/150" alt="Produk 3" class="mx-auto" />
+   <img src="{{ asset('img') }}/raw-materials-1.png" width="300" height="150" alt="Produk 3" class="mx-auto" />
    <p class="mt-2 text-sm">
     Brand 3Star, Artus Series, ANSI #150, 0.5 Inch <br />with Inner SS316L
     and Outer Ring CRS Sealing Element SS316L-Graphite
@@ -746,23 +748,23 @@
     <h3 class="py-4 text-lg font-bold">Ikuti Kami</h3>
     <div class="flex justify-start space-x-4 text-white">
      <!-- Facebook -->
-     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1877F2] hover:opacity-80">
+     <a href="https://www.facebook.com/share/1JzH8VFXWc/?mibextid=wwXIfr" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1877F2] hover:opacity-80">
       <i class="fab fa-facebook-f text-base"></i>
      </a>
      <!-- Instagram -->
-     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#E1306C] hover:opacity-80">
+     <a href="https://www.instagram.com/fajarbenuaindustries?igsh=Zzg3eW4wNnhreThv" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#E1306C] hover:opacity-80">
       <i class="fab fa-instagram text-base"></i>
      </a>
      <!-- Twitter -->
-     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1DA1F2] hover:opacity-80">
+     <a href="https://www.twitter.com/FajarBenua" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1DA1F2] hover:opacity-80">
       <i class="fab fa-twitter text-base"></i>
      </a>
      <!-- YouTube -->
-     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF0000] hover:opacity-80">
+     <a href="https://youtube.com/@fajarbenuaindustries?si=uz8lQ5C89CmesCNb" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF0000] hover:opacity-80">
       <i class="fab fa-youtube text-base"></i>
      </a>
      <!-- LinkedIn -->
-     <a href="#" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A66C2] hover:opacity-80">
+     <a href="https://id.linkedin.com/company/fajarbenuaindustries" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#0A66C2] hover:opacity-80">
       <i class="fab fa-linkedin-in text-base"></i>
      </a>
     </div>
