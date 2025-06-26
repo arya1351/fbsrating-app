@@ -58,7 +58,7 @@
  @endif
 
  <!-- LIST MERAH (TIDAK sticky) -->
- <div class="bg-[#C4202C] py-2 text-xs text-white md:py-0">
+ <div class="bg-fbsred py-2 text-xs text-white md:py-1.5 md:text-sm">
   <div class="container mx-auto flex justify-center space-x-6 md:justify-end md:space-x-4">
    <!-- Dropdown -->
    <div x-data="{ open: false }" class="relative">
@@ -70,24 +70,27 @@
        clip-rule="evenodd" />
      </svg>
     </button>
-    <div x-show="open" @click.outside="open = false" x-transition:enter="transition ease-out duration-200"
+    <div x-show="open" x-cloak @click.outside="open = false" x-transition:enter="transition ease-out duration-200"
      x-transition:enter-start="opacity-0 scale-100" x-transition:enter-end="opacity-100 scale-100"
      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100"
      x-transition:leave-end="opacity-0 scale-100"
      class="absolute right-0 z-50 mt-1 w-48 rounded bg-white text-sm text-black shadow">
-     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profil Perusahaan</a>
-
-     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Visi Misi</a>
+     <a href="https://store.fajarbenua.co.id/fajar-benua-group/" class="block px-4 py-2 hover:bg-gray-100">Fajar Benua
+      Group</a>
+     <a href="https://store.fajarbenua.co.id/fajar-benua-store/" class="block px-4 py-2 hover:bg-gray-100">Fajar Benua
+      Store</a>
+     <a href="https://store.fajarbenua.co.id/tim-ahli-kami/" class="block px-4 py-2 hover:bg-gray-100">Tim Ahli Kami</a>
+     <a href="https://ruangengineer.id/" class="block px-4 py-2 hover:bg-gray-100">Ruang Engineer</a>
     </div>
    </div>
 
-   <a href="#" class="hover:underline">Artikel</a>
-   <a href="#" class="hover:underline">Panduan</a>
+   <a href="https://store.fajarbenua.co.id/blog/" class="hover:underline">Artikel</a>
+   <a href="https://store.fajarbenua.co.id/panduan/" class="hover:underline">Panduan</a>
   </div>
  </div>
 
  <!-- Sticky Navbar -->
- <nav class="sticky top-0 z-40 bg-white shadow">
+ {{-- <nav class="sticky top-0 z-40 bg-white shadow">
   <!-- Main Navbar -->
   <div class="container mx-auto flex items-center justify-between px-6 py-3">
    <!-- Kiri: Logo -->
@@ -99,6 +102,18 @@
 
     @if (Route::has('login'))
      @auth
+        <!-- ✅ Hamburger Button (Mobile only) -->
+    <div class="md:hidden">
+      <button @click="mobileOpen = !mobileOpen">
+        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+
+    
       <div x-data="{ open: false }" class="relative inline-block text-left">
        <!-- Button -->
        <button @click="open = !open"
@@ -206,6 +221,7 @@
          </div>
         </div>
        </div>
+
       @else
        <!-- Kanan: Cart + Auth -->
 
@@ -272,39 +288,240 @@
   </div>
   </div>
   </div>
-  
-</nav>
+  @auth
+   <!-- Mobile Slide Menu -->
+   <div x-show="mobileOpen" x-transition:enter="transition transform duration-300"
+    x-transition:enter-start="-translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100"
+    x-transition:leave="transition transform duration-200" x-transition:leave-start="translate-x-0 opacity-100"
+    x-transition:leave-end="-translate-x-full opacity-0"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-white p-6 shadow-lg md:hidden">
 
-<!-- Drawer Mobile -->
-<div   x-show="mobileOpen"
-  x-transition:enter="transition ease-out duration-300"
-  x-transition:enter-start="-translate-x-full"
-  x-transition:enter-end="translate-x-0"
-  x-transition:leave="transition ease-in duration-200"
-  x-transition:leave-start="translate-x-0"
-  x-transition:leave-end="-translate-x-full"
+    <button @click="mobileOpen = false" class="mb-4 w-full text-right text-xl text-gray-700">&times;</button>
 
-  x-cloak class="fixed inset-0 z-50 flex">
+    <a href="{{ route('profile.edit') }}" class="block px-2 py-2 text-sm text-black hover:bg-gray-100">Profile</a>
+
+    <form method="POST" action="{{ route('logout') }}" class="mt-2">
+     @csrf
+     <button type="submit"
+      class="block w-full px-2 py-2 text-left text-sm text-black hover:bg-gray-100">Logout</button>
+    </form>
+
+    <!-- Tombol Ulasan -->
+    <button @click="modelOpen = true" class="mt-4 w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+     Berikan Ulasan
+    </button>
+   </div>
+  @endauth
+ </nav>
+
+ <!-- Drawer Mobile -->
+ <div x-show="mobileOpen" x-transition:enter="transition ease-out duration-300"
+  x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+  x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0"
+  x-transition:leave-end="-translate-x-full" x-cloak class="fixed inset-0 z-50 flex">
   <!-- Overlay -->
   <div class="fixed inset-0 bg-opacity-50" @click="mobileOpen = false"></div>
 
   <!-- Sidebar -->
-  <div class="relative w-full bg-white p-6 text-sm text-black z-50 transform transition-transform duration-300"
-    x-transition:enter="translate-x-[-100%]" x-transition:enter-end="translate-x-0"
-    x-transition:leave="translate-x-0" x-transition:leave-end="translate-x-[-100%]">
-    <button @click="mobileOpen = false" class="absolute top-2 right-2 text-xl">&times;</button>
+  <div class="relative z-50 w-full transform bg-white p-6 text-sm text-black transition-transform duration-300"
+   x-transition:enter="translate-x-[-100%]" x-transition:enter-end="translate-x-0" x-transition:leave="translate-x-0"
+   x-transition:leave-end="translate-x-[-100%]">
+   <button @click="mobileOpen = false" class="absolute right-2 top-2 text-xl">&times;</button>
 
-    <img src="{{ asset('img/fbjlogos.png') }}" alt="Logo" class="h-10 mb-6">
+   <img src="{{ asset('img/fbjlogos.png') }}" alt="Logo" class="mb-6 h-10">
 
-    <a href="{{ route('login') }}"
-      class="block w-full rounded border px-4 py-2 mb-2 text-center hover:bg-gray-100">SIGN IN</a>
-    <a href="{{ route('register') }}"
-      class="block w-full rounded border px-4 py-2 mb-4 text-center hover:bg-gray-100">REGISTER</a>
+   <a href="{{ route('login') }}"
+    class="mb-2 block w-full rounded border px-4 py-2 text-center hover:bg-gray-100">SIGN IN</a>
+   <a href="{{ route('register') }}"
+    class="mb-4 block w-full rounded border px-4 py-2 text-center hover:bg-gray-100">REGISTER</a>
 
-    <button @click="modalOpen = true; mobileOpen = false"
-      class="w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Berikan Ulasan</button>
+   <button @click="modalOpen = true; mobileOpen = false"
+    class="w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Berikan Ulasan</button>
   </div>
-</div>
+ </div> --}}
+
+ <nav x-data="{ mobileOpen: false, modalOpen: false, modelOpen: false }" class="sticky top-0 z-40 bg-white shadow">
+  <div class="container mx-auto flex items-center justify-between px-6 py-3">
+   <!-- Logo -->
+   <div class="flex items-center space-x-4">
+    <img src="{{ asset('img/fbjlogos.png') }}" alt="Logo" class="h-10" />
+   </div>
+
+   <!-- Kanan (Desktop + Mobile) -->
+   <div class="flex items-center space-x-4">
+    @if (Route::has('login'))
+     @auth
+      <!-- Desktop -->
+      <div class="hidden space-x-2 md:flex">
+       <!-- Dropdown -->
+       <div x-data="{ open: false }" class="relative">
+        <button @click="open = !open" class="rounded border px-3 py-2 text-sm hover:bg-gray-100">👤</button>
+        <div x-show="open" @click.outside="open = false"
+         class="absolute right-0 mt-2 w-40 rounded border bg-white shadow">
+         <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit" class="w-full px-4 py-2 text-left text-sm hover:bg-gray-100">Logout</button>
+         </form>
+        </div>
+       </div>
+       <!-- Tombol Ulasan -->
+       <button @click="modalOpen = true" class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Beri
+        Ulasan</button>
+      </div>
+
+      <!-- Hamburger (Mobile only) -->
+      <div class="md:hidden">
+       <button @click="mobileOpen = !mobileOpen">
+        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+       </button>
+      </div>
+     @else
+      <!-- Desktop non-login -->
+      <div class="hidden space-x-2 md:flex">
+       <a href="{{ route('login') }}" class="rounded border px-3 py-2 text-sm text-black hover:bg-gray-100">Sign In</a>
+       <a href="{{ route('register') }}"
+        class="rounded border px-3 py-2 text-sm text-black hover:bg-gray-100">Register</a>
+       <button @click="modelOpen = true" class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Beri
+        Ulasan</button>
+      </div>
+
+      <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+       aria-modal="true">
+       <div class="flex min-h-screen items-center justify-center px-4 text-center">
+        <!-- Overlay -->
+        <div x-cloak @click="modelOpen = false" x-show="modelOpen"
+         x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200 transform"
+         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         class="bg-fbsgray fixed inset-0 bg-opacity-80" aria-hidden="true"></div>
+
+        <!-- Modal -->
+        <div x-cloak x-show="modelOpen" x-transition:enter="transition ease-out duration-300 transform"
+         x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+         x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+         x-transition:leave="transition ease-in duration-200 transform"
+         x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+         class="my-20 inline-block w-full max-w-lg transform overflow-hidden rounded-lg bg-white p-6 text-left shadow-xl transition-all">
+
+         <!-- Header -->
+         <div class="flex justify-between">
+          <p class="text-xl font-semibold text-black">Beri Ulasan</p>
+          <button @click="modelOpen = false" class="mb-2 rounded-full p-1 text-black">
+           ✕
+          </button>
+         </div>
+         <div class="flex">
+          <a href="{{ route('login') }}"
+           class="bg-fbsred mx-auto w-full rounded px-4 py-2 text-center text-sm font-bold text-white hover:bg-red-900">Kamu
+           harus login terlebih dahulu</a>
+         </div>
+
+        </div>
+       </div>
+      </div>
+      <!-- Hamburger (Mobile only) -->
+      <div class="md:hidden">
+       <button @click="mobileOpen = !mobileOpen">
+        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+         viewBox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+       </button>
+      </div>
+     @endauth
+    @endif
+   </div>
+  </div>
+
+  <!-- Drawer Mobile -->
+  <div x-show="mobileOpen" x-cloak x-transition
+   class="fixed inset-y-0 left-0 z-50 w-full bg-white p-6 shadow-lg md:hidden">
+   <button @click="mobileOpen = false" class="mb-4 w-full text-right text-xl text-gray-700">&times;</button>
+   @auth
+    <form method="POST" action="{{ route('logout') }}"
+     class="hover:bg-fbsred mb-2 block w-full rounded border px-4 py-2 text-center transition-all ease-in hover:text-white">
+     @csrf
+     <button type="submit" class="block w-full px-2 py-2 text-left text-sm">Logout</button>
+    </form>
+   @else
+    <a href="{{ route('login') }}"
+     class="mb-2 block w-full rounded border px-4 py-2 text-center hover:bg-gray-100">Sign In</a>
+    <a href="{{ route('register') }}"
+     class="mb-4 block w-full rounded border px-4 py-2 text-center hover:bg-gray-100">Register</a>
+   @endauth
+   <button @click="modelOpen = true; mobileOpen = false"
+    class="w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">Beri Ulasan</button>
+  </div>
+
+  <!-- Modal Ulasan (Global) -->
+  <div x-show="modalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title"
+   role="dialog" aria-modal="true" x-transition:enter="transition ease-out duration-300 transform"
+   x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+   x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+   x-transition:leave="transition ease-in duration-200 transform"
+   x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+   x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+   <div class="flex min-h-screen items-center justify-center px-4 text-center">
+    <!-- Overlay -->
+    <div x-cloak @click="modalOpen = false" x-show="modalOpen"
+     x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0"
+     x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200 transform"
+     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+     class="bg-fbsgray fixed inset-0 bg-opacity-80" aria-hidden="true"></div>
+
+    <!-- Modal -->
+    <div
+     class="relative z-50 my-20 inline-block w-full max-w-lg transform overflow-hidden rounded-lg bg-white p-6 text-left shadow-xl">
+     <div class="flex justify-end">
+      <button @click="modalOpen = false" class="mb-2 rounded-full p-1 text-black">✕</button>
+     </div>
+
+     <!-- Form -->
+     <form action="{{ route('ratings.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+      @csrf
+      <div class="flex items-center overflow-hidden rounded-full bg-gray-400">
+       <input type="text" name="rating_desc" placeholder="Berikan ulasan"
+        class="w-full bg-transparent px-4 py-2 text-white placeholder-white focus:outline-none" required>
+       <button type="submit" class="px-4 text-red-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-45" fill="currentColor" viewBox="0 0 20 20">
+         <path
+          d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" />
+        </svg>
+       </button>
+      </div>
+
+      <input type="text" name="product"
+       class="bg-fbsred w-full rounded px-4 py-2 text-white placeholder:text-white" placeholder="Produk yang dibeli">
+
+      <div class="flex cursor-pointer justify-center space-x-1 text-3xl text-gray-300" id="starRating">
+       @for ($i = 1; $i <= 5; $i++)
+        <span class="star" data-value="{{ $i }}">★</span>
+       @endfor
+       <input type="hidden" name="stars" id="starsInput" value="0">
+      </div>
+
+      <div id="imageFields">
+       <div class="mb-2">
+        <input type="file" name="images[]" class="block w-full text-sm text-gray-600" />
+       </div>
+      </div>
+      <button type="button" onclick="addImageField()"
+       class="rounded bg-gray-200 px-3 py-2 text-sm transition hover:bg-gray-300">
+       + Tambah Gambar
+      </button>
+
+      <div class="flex justify-end">
+       <button type="submit" class="bg-fbsred rounded px-4 py-2 text-white transition hover:bg-red-700">Kirim
+        Ulasan</button>
+      </div>
+     </form>
+    </div>
+   </div>
+  </div>
+ </nav>
 
  <!-- Chart & Ratings -->
  <div class="flex flex-col items-start justify-center gap-8 p-8 md:flex-row">
@@ -488,7 +705,7 @@
   <div class="grid grid-cols-1 gap-8 p-8 md:grid-cols-3">
    <!-- Lokasi -->
    <div>
-    <h3 class="mb-2 text-lg font-bold">Lokasi Kami</h3>
+    <h3 class="pb-4 text-lg font-bold">Lokasi Kami</h3>
     <p class="flex gap-2 font-bold">
      Indonesia <img src="https://flagicons.lipis.dev/flags/4x3/id.svg" width="20px" alt="">
     </p>
@@ -498,21 +715,29 @@
    </div>
    <!-- Tentang Kami -->
    <div>
-    <h3 class="mb-2 text-lg font-bold">Tentang Kami</h3>
-    <p><a href="https://store.fajarbenua.co.id/fajar-benua-group/" class="text-white hover:underline">Fajar Benua
+    <h3 class="pb-4 text-lg font-bold">Tentang Kami</h3>
+    <p><a href="https://store.fajarbenua.co.id/fajar-benua-group/" class="text-md text-white hover:underline">Fajar
+      Benua
       Group</a></p>
     <p class="pt-1"><a href="https://store.fajarbenua.co.id/fajar-benua-store/"
-      class="text-white hover:underline">Fajar Benua Store</a></p>
-    <p class="pt-1"><a href="https://store.fajarbenua.co.id/tim-ahli-kami/" class="text-white hover:underline">Tim
+      class="text-md text-white hover:underline">Fajar Benua Store</a></p>
+    <p class="pt-1"><a href="https://store.fajarbenua.co.id/tim-ahli-kami/"
+      class="text-md text-white hover:underline">Tim
       Ahli Kami</a></p>
-    <p class="pt-1"><a href="https://ruangengineer.id/" class="text-white hover:underline">Ruang Engineer</a></p>
+    <p class="pt-1"><a href="https://ruangengineer.id/" class="text-md text-white hover:underline">Ruang
+      Engineer</a></p>
    </div>
    <!-- Metode Pembayaran -->
    <div>
-    <h3 class="pb-2 text-lg font-bold">Informasi</h3>
-    <div class="grid gap-1">
-     <a href="#" class="text-md hover:text-underline text-white">Menjadi Vendor Kami</a>
-     <a href="#" class="text-md hover:text-underline text-white">Syarat dan Ketentuan</a>
+    <h3 class="pb-4 text-lg font-bold">Informasi</h3>
+    <div class="grid gap-1 pb-4">
+     <p><a href="https://store.fajarbenua.co.id/vendor-registration/"
+       class="text-md hover:underline text-white">Menjadi Vendor Kami</a>
+     </p>
+     <p>
+      <a href="https://store.fajarbenua.co.id/syarat-dan-ketentuan/"
+       class="text-md hover:underline text-white">Syarat dan Ketentuan</a>
+     </p>
     </div>
     <h3 class="pb-4 text-lg font-bold">Metode Pembayaran</h3>
     <div>
